@@ -1,0 +1,19 @@
+import requests as rq
+from bs4 import BeautifulSoup
+
+    
+def printparagraph(url):
+    
+    r_content = rq.get(url)
+    soup_content = BeautifulSoup(r_content.text,"lxml")
+    for pa in soup_content.find('div',class_= 'entry-content clearfix single-post-content'):
+            print(pa)
+
+
+        
+r = rq.get("https://ctee.com.tw/livenews")
+soup = BeautifulSoup(r.text,"lxml")     
+for i in range(0,len(soup.select('div.item-content'))): 
+    url = soup.select("div.item-content")[i].select("a")[1]['href']
+    print(url)
+    printparagraph(url)
